@@ -1,20 +1,27 @@
 export class Queue<T> {
 
     private _data: T[] = [];
+    private _frontIndex: number = 0;
 
     constructor() {
     }
 
     clear(): void {
         this._data.splice(0, this._data.length);
+        this._frontIndex = 0;
+    }
+
+    purge(): void {
+        this._data.splice(0, this._frontIndex);
+        this._frontIndex = 0;
     }
 
     isEmpty() {
-        return this._data.length === 0;
+        return this._data.length === 0 || this._frontIndex > this._data.length;
     }
 
     get length() {
-        return this._data.length;
+        return this._data.length - this._frontIndex;
     }
 
     enqueue(element: T) {
@@ -24,23 +31,27 @@ export class Queue<T> {
     }
 
     dequeue(): T {
-        if (this._data.length === 0) {
+        if (this.isEmpty()) {
             throw new Error('Invalid action: no element in queue');
         }
 
-        return this._data.shift()!;
+        const elem = this._data[this._frontIndex++];
+        if (this._frontIndex >= this._data.length) {
+            this.clear();
+        }
+        return elem;
     }
 
     front(): T {
-        if (this._data.length === 0) {
+        if (this.isEmpty()) {
             throw new Error('Invalid action: no element in queue');
         }
 
-        return this._data[0];
+        return this._data[this._frontIndex];
     }
 
     rear(): T {
-        if (this._data.length === 0) {
+        if (this.isEmpty()) {
             throw new Error('Invalid action: no element in queue');
         }
 
