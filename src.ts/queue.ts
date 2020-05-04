@@ -1,4 +1,4 @@
-class Queue<T> {
+export class Queue<T> {
 
     private _data: T[] = [];
 
@@ -18,7 +18,9 @@ class Queue<T> {
     }
 
     enqueue(element: T) {
-        this._data[this._data.length] = element;
+        if (typeof element !== "undefined") {
+            this._data[this._data.length] = element;
+        }
     }
 
     dequeue(): T {
@@ -26,7 +28,7 @@ class Queue<T> {
             throw new Error('Invalid action: no element in queue');
         }
 
-        return this._data.shift();
+        return this._data.shift()!;
     }
 
     front(): T {
