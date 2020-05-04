@@ -50,4 +50,15 @@ export class Stack<T> {
         return this._data[0];
     }
 
+    toString() {
+        let vals = '';
+        for (let idx = this._top; idx >= 0; --idx) {
+            if (vals) {
+                vals += ', ';
+            }
+            vals += this._data[idx];
+        }
+        return `[${vals}]`;
+    }
+
 }
