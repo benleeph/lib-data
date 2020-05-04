@@ -1,5 +1,5 @@
 {
-  "name": "lib-data",
+  "name": "lib-datastruct",
   "version": "1.0.0",
   "description": "Typescript library to support generic and custom data structures",
   "main": "./dist/index.js",
