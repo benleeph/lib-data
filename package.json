@@ -1,6 +1,6 @@
 {
   "name": "lib-datastruct",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript library to support generic and custom data structures",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",

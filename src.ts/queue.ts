@@ -1,9 +1,22 @@
-export class Queue<T> {
+export class Queue<T> implements Iterable<T> {
 
     private _data: T[] = [];
     private _frontIndex: number = 0;
 
     constructor() {
+    }
+
+    [Symbol.iterator](): Iterator<T, any, undefined> {
+        let index = this._frontIndex;
+        return {
+            next: () => {
+                if (this._data.length > 0 && index < this._data.length) {
+                    return { value: this._data[index++], done: false };
+                } else {
+                    return { value: undefined, done: true };
+                }
+            }
+        };
     }
 
     clear(): void {
@@ -56,6 +69,17 @@ export class Queue<T> {
         }
 
         return this._data[this._data.length - 1];
+    }
+
+    toString() {
+        let vals = '';
+        for (let idx = this._frontIndex; idx < this._data.length; ++idx) {
+            if (vals) {
+                vals += ', ';
+            }
+            vals += this._data[idx];
+        }
+        return `[${vals}]`;
     }
 
 }
